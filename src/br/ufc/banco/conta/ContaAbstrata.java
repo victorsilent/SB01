@@ -14,7 +14,9 @@ public abstract class ContaAbstrata {
 	}
 
 	public void creditar(double valor) {
-		saldo = saldo + valor;
+		if (valor >= 0){
+			saldo = saldo + valor;
+		}
 	}
 
 	public abstract void debitar(double valor) throws SIException;
