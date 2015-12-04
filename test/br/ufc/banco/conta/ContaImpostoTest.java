@@ -26,5 +26,10 @@ public class ContaImpostoTest {
 	public void testDebitarNegativo() throws SIException {
 		conta.debitar(-100);
 	}
+	
+	@Test(expected = SIException.class)
+	public void testDebitarSemSaldo() throws SIException {
+		conta.debitar(100);
+	}
 
 }
