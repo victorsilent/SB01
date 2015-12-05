@@ -10,7 +10,7 @@ import br.ufc.banco.conta.excecoes.SIException;
 
 public class ContaTest {
 	
-	Conta teste;
+	private Conta teste;
 	
 	@Before
 	public void setUp() throws Exception {
