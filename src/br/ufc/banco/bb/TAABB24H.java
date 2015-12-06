@@ -6,7 +6,9 @@ import br.ufc.banco.bb.excecoes.TNRException;
 import br.ufc.banco.conta.Conta;
 import br.ufc.banco.conta.ContaAbstrata;
 import br.ufc.banco.conta.ContaEspecial;
+import br.ufc.banco.conta.ContaImposto;
 import br.ufc.banco.conta.ContaPoupanca;
+import br.ufc.banco.dados.ManipuladorArquivos;
 import br.ufc.banco.dados.VectorContas;
 import br.ufc.banco.dados.excecoes.CEException;
 import br.ufc.banco.dados.excecoes.CIException;
@@ -16,6 +18,8 @@ public class TAABB24H {
 	private static Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
+		
+		
 		BancoBrasil banco = new BancoBrasil(new VectorContas());
 		boolean loop = true;
 		while (loop) {
@@ -37,7 +41,7 @@ public class TAABB24H {
 					break;
 				case 4:
 					System.out.println("Digite o número da conta imposto: ");
-					conta = new ContaPoupanca(scanner.next());
+					conta = new ContaImposto(scanner.next());
 					break;
 
 				default:
@@ -183,5 +187,5 @@ public class TAABB24H {
 		System.out.print("Digite a opção desejada: ");
 		return scanner.nextInt();
 	}
-
+	
 }
