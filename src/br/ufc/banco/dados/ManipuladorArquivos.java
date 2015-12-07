@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -53,7 +54,6 @@ public class ManipuladorArquivos implements IRepositorioContas {
 	@Override
 	public void inserir(ContaAbstrata conta) throws CEException {
 		try {
-			
 			String numero = conta.obterNumero();
 			String saldo = String.valueOf(conta.obterSaldo());
 			FileWriter fw = new FileWriter("contas.txt",true);
@@ -86,9 +86,25 @@ public class ManipuladorArquivos implements IRepositorioContas {
 	}
 
 	@Override
-	public int numeroContas() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int numeroContas(){
+		int count = 0;
+		String file="contas.txt";
+	       try{
+	          FileReader input = new FileReader(file);
+	          
+	          BufferedReader bufferReader = new BufferedReader(input);
+	          String line;
+	          
+	          while ((line = bufferReader.readLine()) != null)   {
+	            System.out.println(line);
+	            count++;
+	          }
+	          bufferReader.close();
+	          return count;
+	       }catch(Exception e){
+	          System.out.println("Erro ao ler a linha:" + e.getMessage());                      
+	       }
+	       return count;
 	}
 	
 }
