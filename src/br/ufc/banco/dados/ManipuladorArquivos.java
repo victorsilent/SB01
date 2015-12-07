@@ -12,7 +12,9 @@ import java.io.InputStreamReader;
 
 import br.ufc.banco.conta.Conta;
 import br.ufc.banco.conta.ContaAbstrata;
+import br.ufc.banco.conta.ContaEspecial;
 import br.ufc.banco.conta.ContaImposto;
+import br.ufc.banco.conta.ContaPoupanca;
 import br.ufc.banco.dados.excecoes.CEException;
 import br.ufc.banco.dados.excecoes.CIException;
 
@@ -75,7 +77,42 @@ public class ManipuladorArquivos implements IRepositorioContas {
 
 	@Override
 	public ContaAbstrata procurar(String numero) {
-		// TODO Auto-generated method stub
+		String file="contas.txt";
+	       try{
+	          FileReader input = new FileReader(file);
+	          
+	          BufferedReader bufferReader = new BufferedReader(input);
+	          String line;
+	          
+	          while ((line = bufferReader.readLine()) != null)   {
+	            String lineConta[] = line.split(",");
+	            if(lineConta[0].equals(numero)) {
+	            	ContaAbstrata conta = null;
+	            	if(lineConta[2].equals("Conta")) {
+	            		conta = new Conta(lineConta[0]);
+	            		conta.creditar(Double.parseDouble(lineConta[1]));
+	            	}
+	            	if(lineConta[2].equals("ContaEspecial")) {
+	            		conta = new ContaEspecial(lineConta[0]);
+	            		conta.creditar(Double.parseDouble(lineConta[1]));
+	            	}
+	            	if(lineConta[2].equals("ContaImposto")) {
+	            		conta = new ContaImposto(lineConta[0]);
+	            		conta.creditar(Double.parseDouble(lineConta[1]));
+	            	}
+	            	if(lineConta[2].equals("ContaPoupanca")) {
+	            		conta = new ContaPoupanca(lineConta[0]);
+	            		conta.creditar(Double.parseDouble(lineConta[1]));
+	            	}
+	            	return conta;
+	            }
+	          }
+	          bufferReader.close();
+	       } catch(FileNotFoundException fnfe) { 
+				System.out.println(fnfe.getMessage());
+	       } catch(IOException ioe) {
+				System.out.println(ioe.getMessage());
+	       }
 		return null;
 	}
 
@@ -96,7 +133,6 @@ public class ManipuladorArquivos implements IRepositorioContas {
 	          String line;
 	          
 	          while ((line = bufferReader.readLine()) != null)   {
-	            System.out.println(line);
 	            count++;
 	          }
 	          bufferReader.close();
