@@ -1,9 +1,11 @@
 package br.ufc.banco.dados;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -50,7 +52,19 @@ public class ManipuladorArquivos implements IRepositorioContas {
 }
 	@Override
 	public void inserir(ContaAbstrata conta) throws CEException {
-		
+		try {
+			
+			String numero = conta.obterNumero();
+			String saldo = String.valueOf(conta.obterSaldo());
+			FileWriter fw = new FileWriter("contas.txt",true);
+			BufferedWriter writer = new BufferedWriter(fw);
+			writer.write(numero+","+saldo+","+conta.getClass().getSimpleName());
+			fw.write(System.getProperty("line.separator"));
+			writer.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
