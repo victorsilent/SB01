@@ -277,10 +277,9 @@ public class BBUI {
 	
 	public static void main(String[] args) {
 		ManipuladorArquivos mManipulador = new ManipuladorArquivos();	
-		mManipulador.apagar("123");
+		mManipulador.editarArquivo(11, 3);
+		//mManipulador.apagar("123");
 		
-		new BBUI(new BancoBrasil(new ManipuladorArquivos())).montaTela();
-		//System.out.println(ManipuladorArquivos.lerArquivo().get(0).obterSaldo());
+		//new BBUI(new BancoBrasil(new ManipuladorArquivos())).montaTela();
 	}
-
 }

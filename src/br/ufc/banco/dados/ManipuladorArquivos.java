@@ -5,11 +5,15 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import br.ufc.banco.conta.Conta;
 import br.ufc.banco.conta.ContaAbstrata;
@@ -20,16 +24,17 @@ import br.ufc.banco.dados.excecoes.CEException;
 import br.ufc.banco.dados.excecoes.CIException;
 
 public class ManipuladorArquivos implements IRepositorioContas {
-	
-	private ArrayList<ContaAbstrata> contasFromFile;
-	private File contas = new File("contas.txt");
+	private static final String arquivo = "contas.txt";
+	private List<ContaAbstrata> contasFromFile;
+	private File contas;
 	private BufferedReader br;
 	
 	public ManipuladorArquivos(){
-		contasFromFile = new ArrayList<>();
+		contasFromFile = new ArrayList<ContaAbstrata>();
+		contas = new File(arquivo);
 		if (!contas.exists()){
 			try {
-				new File("contas.txt").createNewFile();
+				new File(arquivo).createNewFile();
 			} catch (IOException e) {
 				e.getMessage();
 			}	
@@ -38,11 +43,44 @@ public class ManipuladorArquivos implements IRepositorioContas {
 		}
 	}	
 	
+	public void editarArquivo(double novoSaldo, int index) {
+		BufferedReader mBufferedReader;
+		String textReaded;
+		String targetLine = "";
+		String textUpdated = "";
+		
+		try {
+			mBufferedReader = new BufferedReader(new FileReader("contas.txt"));
+			while((textReaded = mBufferedReader.readLine()) != null) {
+				String lineConta[] = textReaded.split(",");
+				
+				if(lineConta[0].equals(contasFromFile.get(index).obterNumero())) {
+					targetLine = textReaded;
+				}
+				
+				textUpdated += textReaded + System.lineSeparator();
+			}
+		} catch(IOException e) {			
+			System.err.println("There was something wrong... " + e.getMessage());
+		}
+		
+		int lastIndexOfPointAtClassName = contasFromFile.get(index).getClass().toString().lastIndexOf('.');
+		String accountType = contasFromFile.get(index).getClass().toString().substring(lastIndexOfPointAtClassName + 1);
+		
+		textUpdated = textUpdated.replace(targetLine, contasFromFile.get(index).obterNumero() + "," + novoSaldo + "," + accountType);
+		
+		try(PrintStream mPrintStream = new PrintStream("contas.txt")) {
+			mPrintStream.write(textUpdated.getBytes());
+		} catch(IOException e) {
+			System.err.println("There was something wrong here..." + e.getMessage());
+		}
+	}
+	
 	public void lerArquivo() {
 		ContaAbstrata contaAbstrata;
 		String textReaded;
 		
-		try(BufferedReader mBufferedReader = new BufferedReader(new FileReader("contas.txt"))) {
+		try(BufferedReader mBufferedReader = new BufferedReader(new FileReader(arquivo))) {
 			while((textReaded = mBufferedReader.readLine()) != null) {
 				String lineConta[] = textReaded.split(",");
 				contaAbstrata = null;
@@ -79,60 +117,63 @@ public class ManipuladorArquivos implements IRepositorioContas {
 	}
 
 	@Override
-	public void apagar(String numero) {
-		System.out.println(contasFromFile.size());
-		
+	public void apagar(String numero) {		
 		for (ContaAbstrata contas : contasFromFile) {
 			if(contas.obterNumero().equals(numero)) {
 				contasFromFile.remove(contasFromFile.indexOf(contas));
+				return;
 			}
 		}
-		
-		System.out.println(contasFromFile.size());
 	}
 
 	@Override
 	public ContaAbstrata procurar(String numero) {
-		String file="contas.txt";
-	       try{
-	          FileReader input = new FileReader(file);
-	          
-	          BufferedReader bufferReader = new BufferedReader(input);
-	          String line;
-	          
-	          while ((line = bufferReader.readLine()) != null)   {
-	            String lineConta[] = line.split(",");
-	            if(lineConta[0].equals(numero)) {
-	            	ContaAbstrata conta = null;
-	            	if(lineConta[2].equals("Conta")) {
-	            		conta = new Conta(lineConta[0]);
-	            	}
-	            	if(lineConta[2].equals("ContaEspecial")) {
-	            		conta = new ContaEspecial(lineConta[0]);
-	            	}
-	            	if(lineConta[2].equals("ContaImposto")) {
-	            		conta = new ContaImposto(lineConta[0]);
-	            	}
-	            	if(lineConta[2].equals("ContaPoupanca")) {
-	            		conta = new ContaPoupanca(lineConta[0]);
-	            	}
-            		conta.creditar(Double.parseDouble(lineConta[1]));
-	            	return conta;
-	            }
-	          }
-	          bufferReader.close();
-	       } catch(FileNotFoundException fnfe) { 
-				System.out.println(fnfe.getMessage());
-	       } catch(IOException ioe) {
-				System.out.println(ioe.getMessage());
-	       }
-		return null;
+	
+       try{
+          FileReader input = new FileReader(arquivo);
+          
+          BufferedReader bufferReader = new BufferedReader(input);
+          String line;
+          
+          while ((line = bufferReader.readLine()) != null)   {
+        	  String lineConta[] = line.split(",");
+        	  if(lineConta[0].equals(numero)) {
+        		  ContaAbstrata conta = null;
+        		  if(lineConta[2].equals("Conta")) {
+        			  conta = new Conta(lineConta[0]);
+        		  }
+        		  if(lineConta[2].equals("ContaEspecial")) {
+        			  conta = new ContaEspecial(lineConta[0]);
+        		  }
+        		  if(lineConta[2].equals("ContaImposto")) {
+        			  conta = new ContaImposto(lineConta[0]);
+        		  }
+        		  if(lineConta[2].equals("ContaPoupanca")) {
+        			  conta = new ContaPoupanca(lineConta[0]);
+        		  }
+        		  conta.creditar(Double.parseDouble(lineConta[1]));
+        		  return conta;
+        	  }
+         }
+          bufferReader.close();
+       } catch(FileNotFoundException fnfe) { 
+			System.out.println(fnfe.getMessage());
+       } catch(IOException ioe) {
+			System.out.println(ioe.getMessage());
+       }
+       return null;
 	}
 
 	@Override
 	public ContaAbstrata[] listar() {
-		// TODO Auto-generated method stub
-		return null;
+		ContaAbstrata contas[] = new ContaAbstrata[contasFromFile.size()];
+		contas = contasFromFile.toArray(contas);
+		
+		for(int i = 0; i < contas.length; i++) {
+			System.out.println(contas[i].obterNumero());
+		}
+		
+		return contas;
 	}
 
 	@Override
@@ -156,24 +197,12 @@ public class ManipuladorArquivos implements IRepositorioContas {
 	       return count;
 	}
 	
-	public static void editarArquivo(ArrayList<ContaAbstrata> contas) {
-		for (ContaAbstrata conta : contas) {
-			try {
-				String numero = conta.obterNumero();
-				String saldo = String.valueOf(conta.obterSaldo());
-				FileWriter fw = new FileWriter("contas.txt",true);
-				BufferedWriter writer = new BufferedWriter(fw);
-				writer.write(numero+","+saldo+","+conta.getClass().getSimpleName());
-				fw.write(System.getProperty("line.separator"));
-				writer.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+	public List<ContaAbstrata> getContasFromFile() {
+		return contasFromFile;
 	}
 	
-	public ArrayList<ContaAbstrata> getContasFromFile() {
-		return contasFromFile;
+	public void setContasFromFile(List<ContaAbstrata> contas) {
+		this.contasFromFile = contas;
 	}
 	
 }
