@@ -151,23 +151,7 @@ public class ManipuladorArquivos implements IRepositorioContas {
 
 	@Override
 	public int numeroContas(){
-		int count = 0;
-		String file="contas.txt";
-	       try{
-	          FileReader input = new FileReader(file);
-	          
-	          BufferedReader bufferReader = new BufferedReader(input);
-	          String line;
-	          
-	          while ((line = bufferReader.readLine()) != null)   {
-	            count++;
-	          }
-	          bufferReader.close();
-	          return count;
-	       }catch(Exception e){
-	          System.out.println("Erro ao ler a linha:" + e.getMessage());                      
-	       }
-	       return count;
+		return contasFromFile.size();
 	}
 	
 	public List<ContaAbstrata> getContasFromFile() {
