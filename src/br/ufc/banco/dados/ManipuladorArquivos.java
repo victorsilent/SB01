@@ -128,40 +128,12 @@ public class ManipuladorArquivos implements IRepositorioContas {
 
 	@Override
 	public ContaAbstrata procurar(String numero) {
-	
-       try{
-          FileReader input = new FileReader(arquivo);
-          
-          BufferedReader bufferReader = new BufferedReader(input);
-          String line;
-          
-          while ((line = bufferReader.readLine()) != null)   {
-        	  String lineConta[] = line.split(",");
-        	  if(lineConta[0].equals(numero)) {
-        		  ContaAbstrata conta = null;
-        		  if(lineConta[2].equals("Conta")) {
-        			  conta = new Conta(lineConta[0]);
-        		  }
-        		  if(lineConta[2].equals("ContaEspecial")) {
-        			  conta = new ContaEspecial(lineConta[0]);
-        		  }
-        		  if(lineConta[2].equals("ContaImposto")) {
-        			  conta = new ContaImposto(lineConta[0]);
-        		  }
-        		  if(lineConta[2].equals("ContaPoupanca")) {
-        			  conta = new ContaPoupanca(lineConta[0]);
-        		  }
-        		  conta.creditar(Double.parseDouble(lineConta[1]));
-        		  return conta;
-        	  }
-         }
-          bufferReader.close();
-       } catch(FileNotFoundException fnfe) { 
-			System.out.println(fnfe.getMessage());
-       } catch(IOException ioe) {
-			System.out.println(ioe.getMessage());
-       }
-       return null;
+		for(ContaAbstrata c: contasFromFile){
+			if(c.obterNumero() == numero){
+				return c;
+			}
+		}
+		return null;
 	}
 
 	@Override

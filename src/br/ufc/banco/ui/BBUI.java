@@ -113,7 +113,7 @@ public class BBUI {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String numeroConta = JOptionPane.showInputDialog("Digite o n�mero da conta");
+				String numeroConta = JOptionPane.showInputDialog("Digite o numero da conta");
 				if(numeroConta != null) {
 					String valor = JOptionPane.showInputDialog("Digite o valor a ser creditado");
 					if(valor != null) {
@@ -276,10 +276,10 @@ public class BBUI {
 	}
 	
 	public static void main(String[] args) {
-		ManipuladorArquivos mManipulador = new ManipuladorArquivos();	
-		mManipulador.editarArquivo(11, 3);
+		//ManipuladorArquivos mManipulador = new ManipuladorArquivos();	
+		//mManipulador.editarArquivo(11, 3);
 		//mManipulador.apagar("123");
 		
-		//new BBUI(new BancoBrasil(new ManipuladorArquivos())).montaTela();
+		new BBUI(new BancoBrasil(new ManipuladorArquivos())).montaTela();
 	}
 }
