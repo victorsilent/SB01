@@ -3,16 +3,10 @@ package br.ufc.banco.dados;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import br.ufc.banco.conta.Conta;
@@ -21,13 +15,11 @@ import br.ufc.banco.conta.ContaEspecial;
 import br.ufc.banco.conta.ContaImposto;
 import br.ufc.banco.conta.ContaPoupanca;
 import br.ufc.banco.dados.excecoes.CEException;
-import br.ufc.banco.dados.excecoes.CIException;
 
 public class ManipuladorArquivos implements IRepositorioContas {
 	private static final String arquivo = "contas.txt";
 	private List<ContaAbstrata> contasFromFile;
 	private File contas;
-	private BufferedReader br;
 	
 	public ManipuladorArquivos(){
 		contasFromFile = new ArrayList<ContaAbstrata>();
@@ -43,36 +35,19 @@ public class ManipuladorArquivos implements IRepositorioContas {
 		}
 	}	
 	
-	public void editarArquivo(double novoSaldo, int index) {
-		BufferedReader mBufferedReader;
-		String textReaded;
-		String targetLine = "";
-		String textUpdated = "";
-		
-		try {
-			mBufferedReader = new BufferedReader(new FileReader("contas.txt"));
-			while((textReaded = mBufferedReader.readLine()) != null) {
-				String lineConta[] = textReaded.split(",");
-				
-				if(lineConta[0].equals(contasFromFile.get(index).obterNumero())) {
-					targetLine = textReaded;
-				}
-				
-				textUpdated += textReaded + System.lineSeparator();
+	public void atualizarArquivo() {
+		for(ContaAbstrata conta : contasFromFile) {
+			try {
+				String numero = conta.obterNumero();
+				String saldo = String.valueOf(conta.obterSaldo());
+				FileWriter fw = new FileWriter(arquivo, true);
+				BufferedWriter writer = new BufferedWriter(fw);
+				writer.write(numero+","+saldo+","+conta.getClass().getSimpleName());
+				fw.write(System.getProperty("line.separator"));
+				writer.close();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		} catch(IOException e) {			
-			System.err.println("There was something wrong... " + e.getMessage());
-		}
-		
-		int lastIndexOfPointAtClassName = contasFromFile.get(index).getClass().toString().lastIndexOf('.');
-		String accountType = contasFromFile.get(index).getClass().toString().substring(lastIndexOfPointAtClassName + 1);
-		
-		textUpdated = textUpdated.replace(targetLine, contasFromFile.get(index).obterNumero() + "," + novoSaldo + "," + accountType);
-		
-		try(PrintStream mPrintStream = new PrintStream("contas.txt")) {
-			mPrintStream.write(textUpdated.getBytes());
-		} catch(IOException e) {
-			System.err.println("There was something wrong here..." + e.getMessage());
 		}
 	}
 	

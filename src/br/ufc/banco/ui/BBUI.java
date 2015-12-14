@@ -3,6 +3,8 @@ package br.ufc.banco.ui;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,6 +25,7 @@ import br.ufc.banco.dados.excecoes.CIException;
 public class BBUI {
 	
 	private BancoBrasil banco;
+	static ManipuladorArquivos manipulador = new ManipuladorArquivos();
 	
 	private JFrame janela;
 	private JPanel painelPrincipal;
@@ -47,7 +50,13 @@ public class BBUI {
 	
 	public void preparaJanela() {
 		janela = new JFrame("Banco do Brasil");
-		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		janela.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				manipulador.atualizarArquivo();
+				e.getWindow().dispose();
+			}
+		});
 	}
 	
 	public void preparaPainelPrincipal() {
@@ -276,10 +285,7 @@ public class BBUI {
 	}
 	
 	public static void main(String[] args) {
-		//ManipuladorArquivos mManipulador = new ManipuladorArquivos();	
-		//mManipulador.editarArquivo(11, 3);
-		//mManipulador.apagar("123");
+		new BBUI(new BancoBrasil(manipulador)).montaTela();
 		
-		new BBUI(new BancoBrasil(new ManipuladorArquivos())).montaTela();
 	}
 }
