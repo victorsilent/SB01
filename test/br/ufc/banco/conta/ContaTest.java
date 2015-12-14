@@ -30,7 +30,7 @@ public class ContaTest {
 	@Test
 	public void testCreditarNegativo() {
 		teste.creditar(-10);
-		assertEquals(0, teste.obterSaldo(), 0);
+		assertEquals(10, teste.obterSaldo(), 0);
 	}
 	
 	@Test
