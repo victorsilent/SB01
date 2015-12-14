@@ -128,20 +128,13 @@ public class ManipuladorArquivos implements IRepositorioContas {
 
 	@Override
 	public ContaAbstrata procurar(String numero) {
-<<<<<<< HEAD
-		for(ContaAbstrata c: contasFromFile){
-=======
+
 		for (ContaAbstrata c : contasFromFile){
->>>>>>> novo
-			if(c.obterNumero() == numero){
+			if(c.obterNumero().equals(numero)){
 				return c;
 			}
 		}
 		return null;
-<<<<<<< HEAD
-=======
-      
->>>>>>> novo
 	}
 
 	@Override
