@@ -73,7 +73,7 @@ public class BBUI {
 			public void actionPerformed(ActionEvent e) {
 				ContaAbstrata conta = null;
 				
-				String[] tipos = {"Comum","Especial","Poupanï¿½a","Imposto"};
+				String[] tipos = {"Comum","Especial","Poupanca","Imposto"};
 				int tipoConta = JOptionPane.showOptionDialog(null, "Escolha o tipo de conta", "Tipo de Conta", 
 						JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, tipos, 0);
 				if(tipoConta >= 0) {
@@ -107,7 +107,7 @@ public class BBUI {
 							}
 						
 						} catch(NumberFormatException nfex) {
-							JOptionPane.showMessageDialog(null, "Valor invï¿½lido");
+							JOptionPane.showMessageDialog(null, "Valor invalido");
 						}
 					}
 				}
@@ -117,7 +117,7 @@ public class BBUI {
 	}
 	
 	public void preparaBotaoDeposito() {
-		JButton botaoDeposito = new JButton("Fazer Depï¿½sito");
+		JButton botaoDeposito = new JButton("Fazer Deposito");
 		botaoDeposito.addActionListener(new ActionListener() {
 			
 			@Override
@@ -129,9 +129,9 @@ public class BBUI {
 						try {
 							double valorDouble = Double.parseDouble(valor);
 							banco.creditar(numeroConta, valorDouble);
-							JOptionPane.showMessageDialog(null, "Depï¿½sito realizado com sucesso!" + valorDouble);
+							JOptionPane.showMessageDialog(null, "Deposito realizado com sucesso!" + valorDouble);
 						} catch (NumberFormatException nfex) {
-							JOptionPane.showMessageDialog(null, "Valor Invï¿½lido");
+							JOptionPane.showMessageDialog(null, "Valor Invalido");
 						} catch (TNRException tnrex) {
 							JOptionPane.showMessageDialog(null, tnrex.getMessage());
 						}
@@ -148,7 +148,7 @@ public class BBUI {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String numeroConta = JOptionPane.showInputDialog("Digite o nï¿½mero da conta");
+				String numeroConta = JOptionPane.showInputDialog("Digite o numero da conta");
 				if(numeroConta != null) {
 					String valor = JOptionPane.showInputDialog("Digite o valor a ser debitado");
 					if(valor != null) {
@@ -157,7 +157,7 @@ public class BBUI {
 							banco.debitar(numeroConta, valorDouble);
 							JOptionPane.showMessageDialog(null, "Saque realizado com sucesso!");
 						} catch(NumberFormatException nfex) {
-							JOptionPane.showMessageDialog(null, "Valor invï¿½lido.");
+							JOptionPane.showMessageDialog(null, "Valor invalido.");
 						} catch (TNRException tnrex) {
 							JOptionPane.showMessageDialog(null, tnrex.getMessage());
 						}
@@ -169,23 +169,23 @@ public class BBUI {
 	}
 	
 	public void preparaBotaoTransf() {	
-		JButton botaoTransf = new JButton("Transferï¿½ncia");
+		JButton botaoTransf = new JButton("Transferencia");
 		botaoTransf.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String numeroContaOrig = JOptionPane.showInputDialog("Digite o nï¿½mero da conta de origem");
+				String numeroContaOrig = JOptionPane.showInputDialog("Digite o numero da conta de origem");
 				if(numeroContaOrig != null) {
-					String numeroContaDest = JOptionPane.showInputDialog("Digite o nï¿½mero da conta de destino");
+					String numeroContaDest = JOptionPane.showInputDialog("Digite o numero da conta de destino");
 					if(numeroContaDest != null) {
 						String valor = JOptionPane.showInputDialog("Digite o valor a ser transferido");
 						if(valor != null) {
 							try {
 								double valorDouble = Double.parseDouble(valor);
 								banco.transferir(numeroContaOrig, numeroContaDest, valorDouble);
-								JOptionPane.showMessageDialog(null, "Transferï¿½ncia realizada com sucesso!");
+								JOptionPane.showMessageDialog(null, "Transferencia realizada com sucesso!");
 							} catch(NumberFormatException nfex) {
-								JOptionPane.showMessageDialog(null, "Valor invï¿½lido");
+								JOptionPane.showMessageDialog(null, "Valor invalido");
 							} catch (TNRException tnrex) {
 								JOptionPane.showMessageDialog(null, tnrex.getMessage());
 							}
@@ -203,7 +203,7 @@ public class BBUI {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String numeroConta = JOptionPane.showInputDialog("Digite o nï¿½mero da conta");
+				String numeroConta = JOptionPane.showInputDialog("Digite o numero da conta");
 				if(numeroConta != null) {
 					try {
 						double saldo = banco.saldo(numeroConta);
@@ -223,7 +223,7 @@ public class BBUI {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String numeroConta = JOptionPane.showInputDialog("Digite o nï¿½mero da conta");
+				String numeroConta = JOptionPane.showInputDialog("Digite o numero da conta");
 				if(numeroConta != null) {
 					try {
 						banco.remover(numeroConta);
@@ -243,11 +243,11 @@ public class BBUI {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String numeroConta = JOptionPane.showInputDialog("Digite o nï¿½mero da conta");
+				String numeroConta = JOptionPane.showInputDialog("Digite o numero da conta");
 				if(numeroConta != null) {
 					try {
 						banco.renderJuros(numeroConta);
-						JOptionPane.showMessageDialog(null, "Operaï¿½ï¿½o realizada com sucesso!");
+						JOptionPane.showMessageDialog(null, "Operacao realizada com sucesso!");
 					} catch(TNRException tnrex) {
 						JOptionPane.showMessageDialog(null, tnrex.getMessage());
 					}
@@ -258,16 +258,16 @@ public class BBUI {
 	}
 	
 	public void preparaBotaoBonus() {	
-		JButton botaoBonus = new JButton("Render Bï¿½nus");
+		JButton botaoBonus = new JButton("Render Bonus");
 		botaoBonus.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String numeroConta = JOptionPane.showInputDialog("Digite o nï¿½mero da conta");
+				String numeroConta = JOptionPane.showInputDialog("Digite o nu½mero da conta");
 				if(numeroConta != null) {
 					try {
 						banco.renderBonus(numeroConta);
-						JOptionPane.showMessageDialog(null, "Operaï¿½ï¿½o realizada com sucesso!");
+						JOptionPane.showMessageDialog(null, "Operacao realizada com sucesso!");
 					} catch(TNRException tnrex) {
 						JOptionPane.showMessageDialog(null, tnrex.getMessage());
 					}
