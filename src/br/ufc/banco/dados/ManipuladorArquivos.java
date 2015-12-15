@@ -36,18 +36,20 @@ public class ManipuladorArquivos implements IRepositorioContas {
 	}	
 	
 	public void atualizarArquivo() {
+		System.out.println(contasFromFile.size());
+		try{
+		FileWriter fw = new FileWriter(arquivo, false);
+		BufferedWriter writer = new BufferedWriter(fw);
 		for(ContaAbstrata conta : contasFromFile) {
-			try {
-				String numero = conta.obterNumero();
-				String saldo = String.valueOf(conta.obterSaldo());
-				FileWriter fw = new FileWriter(arquivo, true);
-				BufferedWriter writer = new BufferedWriter(fw);
-				writer.write(numero+","+saldo+","+conta.getClass().getSimpleName());
-				fw.write(System.getProperty("line.separator"));
-				writer.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			String numero = conta.obterNumero();
+			String saldo = String.valueOf(conta.obterSaldo());
+			writer.write(numero+","+saldo+","+conta.getClass().getSimpleName());
+			writer.newLine();
+		}
+		writer.close();
+		}
+		catch(IOException e){
+			System.err.println("There was something wrong... " + e.getMessage());
 		}
 	}
 	
