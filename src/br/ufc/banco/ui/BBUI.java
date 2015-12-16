@@ -263,7 +263,7 @@ public class BBUI {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String numeroConta = JOptionPane.showInputDialog("Digite o nu½mero da conta");
+				String numeroConta = JOptionPane.showInputDialog("Digite o numero da conta");
 				if(numeroConta != null) {
 					try {
 						banco.renderBonus(numeroConta);
