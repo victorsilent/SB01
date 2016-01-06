@@ -1,5 +1,6 @@
 package br.ufc.banco.bb;
 
+
 import br.ufc.banco.bb.excecoes.TCIException;
 import br.ufc.banco.bb.excecoes.TNRException;
 import br.ufc.banco.conta.ContaAbstrata;
@@ -19,7 +20,6 @@ public class BancoBrasil {
 	public BancoBrasil(IRepositorioContas repositorio) {
 		this.repositorio = repositorio;
 	}
-
 	public void cadastrar(ContaAbstrata conta) throws CEException {
 		this.repositorio.inserir(conta);
 	}
