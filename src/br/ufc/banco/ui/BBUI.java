@@ -287,14 +287,11 @@ public class BBUI {
 		janela.setVisible(true);
 	}
 	
+	public void connect(){
+		
+	}
+	
 	public static void main(String[] args) {
-		
-		try{
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/","root","");
-		}catch(SQLException e){
-			System.out.println("Não deu certo");
-		}
-		
 		new BBUI(new BancoBrasil(manipulador)).montaTela();
 		
 	}
