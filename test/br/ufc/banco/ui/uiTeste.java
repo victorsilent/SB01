@@ -16,7 +16,7 @@ public class uiTeste {
 	}
 
 	@Test
-	public void testConnect() {
+	public void testConnect() throws SQLException{
 		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/","root","");
 	}
 
