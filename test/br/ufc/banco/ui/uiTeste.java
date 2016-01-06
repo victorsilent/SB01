@@ -1,9 +1,7 @@
 package br.ufc.banco.ui;
 
 import static org.junit.Assert.*;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.*;
 
 import org.junit.Before;
 import org.junit.Test;
