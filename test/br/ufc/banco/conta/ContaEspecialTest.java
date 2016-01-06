@@ -11,7 +11,7 @@ public class ContaEspecialTest {
 
 	@Before
 	public void setUp() throws Exception {
-		conta = new ContaEspecial("123");
+		conta = new ContaEspecial("1234");
 	}
 
 	@After
