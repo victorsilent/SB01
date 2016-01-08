@@ -14,9 +14,18 @@ public class uiTeste {
 	}
 
 	@Test
-	public void testConnect() throws Exception{
+	public void testeStat() throws Exception{
+		
 		Class.forName("com.mysql.jdbc.Driver").newInstance(); 
-		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/","root","1231231231231231231231231");
+		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/","root","");
+		
+		Statement stmt = null;
+		stmt = connection.createStatement();
+		String query = "CREATE TABLE meubanco " +
+                "(id INTEGER not NULL, " +
+                " age INTEGER, " + 
+                " PRIMARY KEY ( id ))"; 
+		
+		stmt.executeUpdate(query);
 	}
-
 }
