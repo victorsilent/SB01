@@ -16,7 +16,7 @@ public class uiTeste {
 	@Test
 	public void testConnect() throws Exception{
 		Class.forName("com.mysql.jdbc.Driver").newInstance(); 
-		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/","root","");
+		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/","root","1231231231231231231231231");
 	}
 
 }
