@@ -17,7 +17,7 @@ public class uiTeste {
 	public void testeStat() throws Exception{
 		
 		Class.forName("com.mysql.jdbc.Driver").newInstance(); 
-		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/","root","");
+		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hello_world_test","root","");
 		
 		Statement stmt = null;
 		stmt = connection.createStatement();
