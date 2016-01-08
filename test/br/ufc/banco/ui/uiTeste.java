@@ -15,8 +15,13 @@ public class uiTeste {
 
 	@Test
 	public void testConnect() throws Exception{
-		Class.forName("com.mysql.jdbc.Driver"); 
-		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/","root","");
+		try{
+			Class.forName("com.mysql.jdbc.Driver").newInstance(); 
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/","root","");
+		}
+		catch(Exception e){
+			System.out.println("Errrroooo...Driver não encontrado "+e);
+		}
 	}
 
 }
