@@ -15,6 +15,5 @@ services:
 script: ant test
 
 before_script:
-  - psql -c "create database bdvendas;" -U postgres
-  - psql -c "alter user postgres with password 'admin'" -U postgres
-  - psql -c "create schema trabalho" -U postgres
+  - cp config/database.yml.travis config/database.yml
+  - psql -c "create database teste;" -U postgres
