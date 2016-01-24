@@ -7,13 +7,20 @@ jdk:
   - oraclejdk8
   
 env:
-  - DB=mysql
   - DB=pgsql
+
+sudo: required
+
+addons:
+  postgresql: "9.3"
+
+services:
+  - postgresql
 
 # run tests, findbugs, pmd and friends using Ant, Maven or Gradle
 script: ant test
 
 before_script:
-  - if [[ "$DB" == "pgsql" ]]; then psql -c "DROP DATABASE IF EXISTS hello_world_test;" -U postgres; fi
-  - if [[ "$DB" == "pgsql" ]]; then psql -c "create database hello_world_test;" -U postgres; fi
-  - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS hello_world_test;" -uroot; fi
+  - if [[ "$DB" == "pgsql" ]]; then psql -c "DROP DATABASE IF EXISTS BDVendas;" -U postgres; fi
+  - if [[ "$DB" == "pgsql" ]]; then psql -c "create database BDVendas;" -U postgres; fi
+  - if [[ "$DB" == "pgsql" ]]; then psql -c "CREATE SCHEMA trabalho" -U postgres; fi
