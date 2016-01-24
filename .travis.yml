@@ -16,5 +16,5 @@ script: ant test
 
 before_script:
   - psql -c "create database bdvendas;" -U postgres
-  - psql -c "alter user postgres with password 'admin'" -U postgres
+  - psql -c "alter user postgres with password 'admin2'" -U postgres
   - psql -c "create schema trabalho" -U postgres
