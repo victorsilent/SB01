@@ -19,14 +19,6 @@ public class uiTeste {
 			Class.forName("org.postgresql.Driver").newInstance(); 
 			Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/teste2","postgres","admin123");
 			connection.createStatement().execute("SET search_path TO trabalho");
-			Statement stmt = null;
-			stmt = connection.createStatement();
-			String query = "CREATE TABLE trabalho.meubanco " +
-		        "(id INTEGER not NULL, " +
-		        " age INTEGER, " + 
-		        " PRIMARY KEY ( id ))"; 
-		
-			stmt.executeUpdate(query);
 		}catch(Exception e) {
             		throw new Exception(e);
 		}
