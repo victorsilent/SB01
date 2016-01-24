@@ -17,16 +17,16 @@ public class uiTeste {
 	public void testeStat() throws Exception{
 		try{
 			Class.forName("org.postgresql.Driver").newInstance(); 
-		Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/bdvendas?currentschema=trabalho","postgres","32423423");
+			Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/bdvendas?currentschema=trabalho","posres","32423423");
 		
-		Statement stmt = null;
-		stmt = connection.createStatement();
-		String query = "CREATE TABLE meubanco " +
-                "(id INTEGER not NULL, " +
-                " age INTEGER, " + 
-                " PRIMARY KEY ( id ))"; 
+			Statement stmt = null;
+			stmt = connection.createStatement();
+			String query = "CREATE TABLE meubanco " +
+		        "(id INTEGER not NULL, " +
+		        " age INTEGER, " + 
+		        " PRIMARY KEY ( id ))"; 
 		
-		stmt.executeUpdate(query);
+			stmt.executeUpdate(query);
 		}catch(Exception e) {
             		throw new Exception(e);
 		}
