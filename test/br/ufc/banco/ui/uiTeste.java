@@ -21,7 +21,7 @@ public class uiTeste {
 			connection.createStatement().execute("SET search_path TO trabalho");
 			Statement stmt = null;
 			stmt = connection.createStatement();
-			String query = "CREATE TABLE meubanco " +
+			String query = "CREATE TABLE trabalho.meubanco " +
 		        "(id INTEGER not NULL, " +
 		        " age INTEGER, " + 
 		        " PRIMARY KEY ( id ))"; 
