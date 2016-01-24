@@ -12,6 +12,12 @@ sudo: required
 services:
   - postgresql
 
+test:
+  adapter: postgresql
+  database: teste2
+  username: postgres
+  password: admin123
+
 # run tests, findbugs, pmd and friends using Ant, Maven or Gradle
 script: ant test
 
