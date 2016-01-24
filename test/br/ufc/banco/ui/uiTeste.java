@@ -17,7 +17,7 @@ public class uiTeste {
 	public void testeStat() throws Exception{
 		
 		Class.forName("org.postgresql.Driver").newInstance(); 
-		Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/BDVendas","postgres","");
+		Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/travis?currentSchema=trabalho","postgres","");
 		
 		Statement stmt = null;
 		stmt = connection.createStatement();

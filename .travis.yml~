@@ -5,9 +5,6 @@ language: java
 jdk:
   - oraclejdk7
   - oraclejdk8
-  
-env:
-  - DB=pgsql
 
 sudo: required
 
@@ -21,6 +18,4 @@ services:
 script: ant test
 
 before_script:
-  - if [[ "$DB" == "pgsql" ]]; then psql -c "DROP DATABASE IF EXISTS BDVendas;" -U postgres; fi
-  - if [[ "$DB" == "pgsql" ]]; then psql -c "create database BDVendas;" -U postgres; fi
-  - if [[ "$DB" == "pgsql" ]]; then psql -c "CREATE SCHEMA trabalho" -U postgres; fi
+  - psql -c "create database BDVendas;" -U postgres
