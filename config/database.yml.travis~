@@ -1,5 +1,5 @@
 test:
   adapter: postgresql
   database: teste2
-  username: aloka
+  username: postgres
   password: admin123
