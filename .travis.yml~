@@ -15,4 +15,5 @@ services:
 script: ant test
 
 before_script:
-  - psql -c "create database BDVendas;" -U postgres
+  - psql -c "create database bdvendas;" -U postgres
+  - psql -c "CREATE SCHEMA trabalho" -U postgres; fi
