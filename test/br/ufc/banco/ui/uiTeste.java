@@ -15,8 +15,8 @@ public class uiTeste {
 
 	@Test
 	public void testeStat() throws Exception{
-		
-		Class.forName("org.postgresql.Driver").newInstance(); 
+		try{
+			Class.forName("org.postgresql.Driver").newInstance(); 
 		Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/bdvendas?currentschema=trabalho","postgres","32423423");
 		
 		Statement stmt = null;
@@ -27,5 +27,9 @@ public class uiTeste {
                 " PRIMARY KEY ( id ))"; 
 		
 		stmt.executeUpdate(query);
+		}catch(Exception e) {
+            		throw new Exception(e);
+		}
+		
 	}
 }
