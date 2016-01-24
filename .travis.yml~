@@ -15,7 +15,7 @@ services:
 # run tests, findbugs, pmd and friends using Ant, Maven or Gradle
 script: ant test
 
-before_script:
+after_script:
   - psql -c "create database teste2;" -U postgres
   - psql -c "create schema trabalho;" -U postgres
   - psql -c "set search_path to 'trabalho';" -U postgres
