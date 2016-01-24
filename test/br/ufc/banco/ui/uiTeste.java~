@@ -13,11 +13,11 @@ public class uiTeste {
 		
 	}
 
-	@Test
+	@Test(expected=Exception.class)
 	public void testeStat() throws Exception{
 		try{
 			Class.forName("org.postgresql.Driver").newInstance(); 
-			Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/teste2","postgres","admin123");
+			Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/teste2","postgres","admin");
 		
 			Statement stmt = null;
 			stmt = connection.createStatement();
