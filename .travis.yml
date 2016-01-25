@@ -24,4 +24,4 @@ script: ant test
 before_script:
   - psql -c "create database teste2;" -U postgres
   - psql -c "create schema trabalho;" -U postgres
-  - psql -U postgres -d teste2 -1 -f BancoVendas.backup
+  - pg_restore -U postgres -d teste2 -1 -f BancoVendas.backup
